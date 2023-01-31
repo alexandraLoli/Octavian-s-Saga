@@ -1,0 +1,43 @@
+Task 1
+
+Formularea intrebarii pentru oracol:
+
+	Fiecare submultime are un cod anume, specific pozitiei pe care ar ocupa-o in solutie 
+		de exemplu, daca avem trei submultimi S1, S2, S3, si doua seturi de ales, inidicii carespunzatori vor fi: 
+			S1 -> 1, 4
+			S2 -> 2, 5
+			S3 -> 3, 6
+			mai precis : Si -> i + j * nrSubmultimi, unde j = 0.. (nrSumbultimiDeAles - 1)
+		astfel, primul set de clauze verifica faptul ca cel putin o multime se afla in reuniune
+	Pe urma, al doilea set de clauze asigura faptul ca doar una dintre submultimi se afla pe o anumita pozitie
+	Iar in ultima secventa se verifica in ce submultimi apare fiecare element din multimea mare
+		de exemplu, daca multime mare e {1,2,3,4,5}, iar submultimile sunt: S1 = {1,2} S2 = {4,5,3}, S3 = {1}
+			clauzele noastre vor fi -> pentru cifra 1 -> 1 4 3 6 0 (ea fiind prezenta in S1 si S3)
+						pentru cifra 2 -> 1 4 0 (ea fiind prezenta in S1)
+						etc.
+
+Descifrarea intrebarii oracolului:
+	
+	Oracolul va intoarce un set de numere negative si pozitive, iar submultimile care ne intereseaza, sunt cele corespunzatoare numarului pozitiv
+		de exemplu: avem 1 -2 -3 | -4 5 -6 |
+			submultimile care, reunite, dau multimea mare sunt S1 si S2
+			se observa ca la fiecare set (delimitat de linii) doar un numar este pozitiv, deoarece un set corespunde unei "pozitii" in reuniune
+				la primul set, valaorea "1" e pozitiva -> S1 e pe prima pozitie
+				la al doilea set, valoarea "5" e pozitiva -> S2 e pe a doua pozitie
+				in output vom avea: 1, 2
+			
+			
+Task 2
+
+Se bazeaza pe acelasi algoritm ca cel de la Task 1, doar ca in loc de numere, avem string-uri si, daca la primul task aveam numarul de submultimi pentru reuniune dat,
+de data aceasta trebuie noi singuri sa gasim numarul minim de pachete care, reunita, sa aiba cartile dorite.
+
+Task 3
+
+Algoritmul merge pe urmatoarea logica:
+	pentru fiecare carte dorita, am un hashmap a carei chei e numele cartii dorite, iar valorile sunt compuse din pachetele care contin acea carte
+	Astfel, trecem prin toate cartile din hashmap
+		luam prima carte -> luam primul pachet in care apare aceasta carte -> verificam ce alte carti dorite de mai afla in acel pachet -> marcam gasirea cartilor respective 
+		trecem la urmatoarea carte si aplicam acelasi algoritm, daca ea nu a fost luata deja
+		algoritmul decurce astfel pana cand gasim toate cartile.
+	De asemenea, pentru a facilita o mai buna aproximare, ordonam cartile dorite in functie de numarul de pachete in care apar.
